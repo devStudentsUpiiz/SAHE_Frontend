@@ -56,18 +56,21 @@
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" id="boleta" placeholder="Boleta" required autofocus>
+                            <input type="text" class="form-control" id="boleta" placeholder="Boleta">
                         </div>
+                        <label class="alerta" id="alertaRequiereBol" style="color: red; font-weight: normal; ">Este campo es requerido*</label>
                     </div>
+                    
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña"
-                                required>
-                        </div>
+                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña">
+                        </div>     
+                        <label class="alerta" id="alertaRequierePass" style="color: red; font-weight: normal; ">Este campo es requerido*</label>               
                     </div>
+                    <label class="alerta" id="alertaLogin" style="color: red; font-weight: normal; ">Boleta y/o contraseña incorrectos*</label>
                     <div class="row">
                         <div class="col-xs-8 p-t-5">
                             <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
@@ -169,8 +172,8 @@
                                     <select name="carrera" class="form-control show-tick" id="carrera">
                                         <option value="0">-</option>
                                         <option value="1">Ing. en Sistemas computacionales</option>
-                                        <option value="2">Ing. en Alimentos</option>
-                                        <option value="3">Ing. Mecatrónica</option>
+                                        <option value="2">Ing. Mecatrónica</option>
+                                        <option value="3">Ing. en Alimentos</option>     
                                         <option value="4">Ing. Ambiental</option>
                                         <option value="5">Ing. Metalúrgica</option>
                                     </select>

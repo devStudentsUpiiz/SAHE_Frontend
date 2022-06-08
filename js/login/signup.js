@@ -170,6 +170,9 @@ function signUp(data) {
         contentType: "application/json; charset=utf-8",
         success : function(json) {
             console.log("Usuario creado "+json);
+            swal('suario creado!','El usuario ha sido creado correctamente','success'); 
+            $("#defaultModal").modal('hide');
+            
         },
         error : function(error) {
             console.log(error);
