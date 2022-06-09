@@ -6,7 +6,7 @@ var url_login = '/auth/signin';
 $("#submit").click(function () {
     if ($('#boleta').val() == "") {
         $('#alertaRequiereBol').show();
-    }else if($('#contrasena').val()==""){
+    } else if ($('#contrasena').val() == "") {
         $('#alertaRequierePass').show();
     } else {
         $('.alerta').hide();
@@ -14,26 +14,30 @@ $("#submit").click(function () {
             username: $('#boleta').val(),
             password: $('#contrasena').val()
         };
-        $.ajax({
-            url: url + url_login,
-            data: JSON.stringify(data),
-            method: 'POST',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            success: function (json) {
-                autorizar(json);
-            },
-            error: function (error) {
-                $('#alertaLogin').show();
-                console.log(error);
-
-            }
-        })
+        signin(data);
     }
 
 
 });
 
+function signin(data) {
+    $.ajax({
+        url: url + url_login,
+        data: JSON.stringify(data),
+        method: 'POST',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        success: function (json) {
+            autorizar(json);
+        },
+        error: function (error) {
+            $('#alertaLogin').show();
+            console.log(error);
+
+        }
+    })
+
+}
 
 function autorizar(data) {
     $.ajax({
@@ -44,7 +48,7 @@ function autorizar(data) {
         },
         success: function (json) {
             console.log(json);
-            localStorage.setItem("headers",JSON.stringify(data));
+            localStorage.setItem("headers", JSON.stringify(data));
             window.location.href = "http://localhost/sahe/alumno/index.html";
         },
         error: function (error) {

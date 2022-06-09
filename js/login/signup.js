@@ -1,5 +1,5 @@
-$('.alerta').hide();
 
+$('.alerta').hide();
 $('#sign_up').submit(function (e) {
     e.preventDefault();
     $('.alerta').hide();
@@ -10,9 +10,9 @@ $('#sign_up').submit(function (e) {
 function validar(form) {
     if ((validarGenero(form)) != null) {
         if ((validarCorrer(form)) != null) {
-            if ( (validarContrasena(form))!= null) {
-                if ((validarProgramaAcademico(form))!= null) {
-                    if ((validarPeriodo(form))!= null) {
+            if ((validarContrasena(form)) != null) {
+                if ((validarProgramaAcademico(form)) != null) {
+                    if ((validarPeriodo(form)) != null) {
                         crearUsuario(form);
                     } else {
                         console.log("Error en el periodo");
@@ -27,11 +27,11 @@ function validar(form) {
             }
         } else {
             console.log("Error en el correo");
-            
+
         }
     } else {
         console.log("Error en el genero");
-        
+
     }
 }
 
@@ -164,21 +164,72 @@ function signUp(data) {
     var url = 'http://localhost:8080/api/v1/auth/signup/student';
     $.ajax({
         url: url,
-        data : JSON.stringify(data),
+        data: JSON.stringify(data),
         method: 'POST',
-        dataType : 'json',
+        dataType: 'json',
         contentType: "application/json; charset=utf-8",
-        success : function(json) {
-            console.log("Usuario creado "+json);
-            swal('suario creado!','El usuario ha sido creado correctamente','success'); 
+        success: function (json) {
+            console.log("Usuario creado " + json);
             $("#defaultModal").modal('hide');
-            
+            let login = {
+                username: data.user.userName,
+                password: data.user.password
+            };
+            swal(
+                'Creado!',
+                'usuario creado exitosamente.',
+                'success'
+              );
+            setTimeout(function () { signin(login); }, 3000);
+
         },
-        error : function(error) {
+        error: function (error) {
             console.log(error);
-            
+
         }
     })
 
+}
+
+function signin(data) {
+    swal.close();
+    $.ajax({
+        url: url + url_login,
+        data: JSON.stringify(data),
+        method: 'POST',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        success: function (json) {
+            autorizar(json);
+        },
+        error: function (error) {
+            $('#alertaLogin').show();
+            console.log(error);
+
+        }
+    })
+
+}
+
+function autorizar(data) {
+    $.ajax({
+        url: url + '/student',
+        method: 'GET',
+        headers: {
+            "Authorization": data.tokenType + ' ' + data.accessToken
+        },
+        success: function (json) {
+            console.log(json);
+            localStorage.setItem("headers", JSON.stringify(data));
+
+            window.location.href = "http://localhost/sahe/alumno/index.html";
+
+
+        },
+        error: function (error) {
+            console.log("Error");
+
+        }
+    })
 }
 
